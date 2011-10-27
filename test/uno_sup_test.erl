@@ -12,3 +12,7 @@ init_should_return_one_for_one_restart_strategy_test() ->
 init_should_return_uno_game_supervisor_test() ->
   {_, {_, Children}} = uno_sup:init([]),
   ?assertMatch([?CHILD(uno_game_sup, supervisor)], Children).
+
+init_will_restart_five_times_test() ->
+  {_, { {_, RestartTimes, _}, _} } = uno_sup:init([]),
+  ?assertEqual(5, RestartTimes).
