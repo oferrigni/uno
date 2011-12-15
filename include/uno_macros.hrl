@@ -1,0 +1,1 @@
+-define(CHILD(I, Type, Restarts), {I, {I, start_link, []}, permanent, Restarts, Type, [I]}).

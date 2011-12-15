@@ -16,6 +16,8 @@
 %% Supervisor callbacks
 -export([init/1]).
 
+-include("include/uno_macros.hrl").
+
 -define(SERVER, ?MODULE).
 
 %%%===================================================================
@@ -56,14 +58,8 @@ init([]) ->
 
         SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
 
-        Restart = permanent,
-        Shutdown = 2000,
-        Type = worker,
 
-        AChild = {'uno_game', {'uno_game', start_link, []},
-                          Restart, Shutdown, Type, ['uno_game']},
-
-        {ok, {SupFlags, [AChild]}}.
+        {ok, {SupFlags, [?CHILD(uno_game, worker, 2000)]}}.
 
 %%%===================================================================
 %%% Internal functions
