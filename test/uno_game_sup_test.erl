@@ -7,7 +7,7 @@
 
 init_should_return_child_specifications_including_four_players_test() ->
     {ok, {SupervisorFloags, Children}}  =  uno_game_sup:init([]),
-    ?assertMatch({one_for_one, 1000, 3600}, SupervisorFloags),
+    ?assertMatch({one_for_one, 2, 3600}, SupervisorFloags),
     ?assertMatch([_,_], Children),
     [UnoGame, UnoPlayer] = Children,
     ?assertEqual(UnoGame, ?CHILD(uno_game, worker, 2000)),
