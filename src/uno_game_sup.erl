@@ -59,7 +59,7 @@ init([]) ->
         SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
 
 
-        {ok, {SupFlags, [?CHILD(uno_game, worker, 2000)]}}.
+        {ok, {SupFlags, [?CHILD(uno_game, worker, 2000),?CHILD(uno_player, worker, 2000)]}}.
 
 %%%===================================================================
 %%% Internal functions
