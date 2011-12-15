@@ -36,7 +36,7 @@ handle_cast(_Msg, State) ->
 
 handle_info(timeout, _State) -> 
   io:format('in timeout~n'),
-  uno_game:register(),
+  uno_game:register_player(),
   {noreply, ok};
 
 handle_info(_Info, State) ->

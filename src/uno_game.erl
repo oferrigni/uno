@@ -11,7 +11,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, hello_amos/0, get_arg/0, register/0]).
+-export([start_link/0, hello_amos/0, get_arg/0, register_player/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -23,14 +23,14 @@
 
 -define(SERVER, ?MODULE).
 
--record(state, {last_arg}).
+-record(state, {last_arg, players = []}).
 
 %%%===================================================================
 %%% API
 %%%===================================================================
 
-register() ->
-    ok.
+register_player() ->
+    gen_server:cast(?SERVER, {register,self()}).
 
 %%--------------------------------------------------------------------
 %% @doc
@@ -97,6 +97,9 @@ handle_call(_Request, _From, State) ->
 %%--------------------------------------------------------------------
 handle_cast({hello_amos, Arg}, _State) ->
   {noreply, #state{last_arg = Arg}};
+handle_cast({register, From}, State) ->
+        #state{players = Players} = State,
+        {noreply, #state{players = Players ++ [From]}};
 handle_cast(_Msg, State) ->
         {noreply, State}.
 

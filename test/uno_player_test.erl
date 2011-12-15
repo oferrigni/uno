@@ -15,7 +15,7 @@ init_should_return_zero_to_cause_timeout_test() ->
 handle_info_when_timeout_should_register_with_game_test() ->
     meck:new(uno_game),
     try
-        meck:expect(uno_game, register, 0, []),
+        meck:expect(uno_game, register_player, 0, []),
         uno_player:handle_info(timeout, state)
     after
         meck:unload()
