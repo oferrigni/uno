@@ -11,7 +11,8 @@
 -define(SERVER, ?MODULE).
 
 start_link() -> 
-        supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
 
-    init([]) ->  {ok}.
+init([]) -> 
+    {ok, {{simple_one_for_one, 2, 2000}, []}}.
 
