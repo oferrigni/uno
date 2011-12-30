@@ -9,7 +9,7 @@ init_should_return_child_specifications_including_the_uno_game_and_uno_player_su
     {ok, {SupervisorFlags, Children}}  =  uno_game_sup:init([]),
     ?assertMatch({one_for_one, 2, 3600}, SupervisorFlags),
     ?assertMatch([_,_], Children),
-    [UnoGame, UnoPlayerSup] = Children,
+    [UnoPlayerSup, UnoGame] = Children,
     ?assertEqual(UnoGame, ?CHILD(uno_game, worker, 2000)),
     ?assertEqual(UnoPlayerSup, ?CHILD(uno_player_sup, supervisor, 2000)).
 
