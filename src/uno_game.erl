@@ -62,7 +62,7 @@ get_arg() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
-        uno_player_sup:start_players(),
+        uno_player_sup:start_players(["one", "two", "three", "four", "five"]),
         {ok, #state{last_arg = "Empty"}}.
 
 %%--------------------------------------------------------------------

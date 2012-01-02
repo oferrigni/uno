@@ -6,7 +6,7 @@
 %% API Function Exports
 %% ------------------------------------------------------------------
 
--export([start_link/0]).
+-export([start_link/0, start_link/1]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -19,6 +19,10 @@
 %% ------------------------------------------------------------------
 
 start_link() ->
+    io:format("Start link 0"),
+  gen_server:start_link(?MODULE, [], []).
+start_link(Value) ->
+    io:format("Start link 1 ~p", [Value]),
   gen_server:start_link(?MODULE, [], []).
 
 %% ------------------------------------------------------------------
@@ -26,6 +30,7 @@ start_link() ->
 %% ------------------------------------------------------------------
 
 init(Args) ->
+    io:format("init~p", [Args]),
   {ok, Args, 0}.
 
 handle_call(_Request, _From, State) ->
