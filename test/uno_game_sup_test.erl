@@ -5,11 +5,13 @@
 -include("include/uno_macros.hrl").
 -include_lib("eunit/include/eunit.hrl").
 
-init_should_return_child_specifications_including_the_uno_game_and_uno_player_sup_test() ->
+init_should_return_child_specificaitons_with_children_test() ->
     {ok, {SupervisorFlags, Children}}  =  uno_game_sup:init([]),
-    ?assertMatch({one_for_one, 2, 3600}, SupervisorFlags),
-    ?assertMatch([_,_], Children),
-    [UnoPlayerSup, UnoGame] = Children,
+    [UnoPlayerSup, UnoGame, UnoDeck] = Children,
+    ?assertEqual(UnoPlayerSup, ?CHILD(uno_player_sup, supervisor, 2000)),
     ?assertEqual(UnoGame, ?CHILD(uno_game, worker, 2000)),
-    ?assertEqual(UnoPlayerSup, ?CHILD(uno_player_sup, supervisor, 2000)).
+    ?assertEqual(UnoDeck, ?CHILD(uno_deck, worker, 2000)).
 
+init_supervisor_flags_should_one_set_test() ->
+    {ok, {SupervisorFlags, Children}}  =  uno_game_sup:init([]),
+    ?assertMatch({one_for_one, 2, 3600}, SupervisorFlags).
