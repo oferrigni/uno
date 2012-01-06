@@ -14,8 +14,16 @@
 
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 
+%% ------------------------------------------------------------------
+%% API Function Definitions
+%% ------------------------------------------------------------------
+
 start_link() ->
-  gen_server:start_link(?MODULE, [], []).
+    gen_server:start_link(?MODULE, [], []).
+
+%% ------------------------------------------------------------------
+%% gen_server Function Definitions
+%% ------------------------------------------------------------------
 
 init(Args) ->
   {ok, Args, 0}.
@@ -37,3 +45,8 @@ terminate(_Reason, _State) ->
 
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
+
+%% ------------------------------------------------------------------
+%% Internal Function Definitions
+%% ------------------------------------------------------------------
+

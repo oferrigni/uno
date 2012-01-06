@@ -19,18 +19,15 @@
 %% ------------------------------------------------------------------
 
 start_link() ->
-    io:format("Start link 0"),
   gen_server:start_link(?MODULE, [], []).
 start_link(Value) ->
-    io:format("Start link 1 ~p", [Value]),
-  gen_server:start_link(?MODULE, [], []).
+  gen_server:start_link(?MODULE, [Value], []).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions
 %% ------------------------------------------------------------------
 
 init(Args) ->
-    io:format("init~p", [Args]),
   {ok, Args, 0}.
 
 handle_call(_Request, _From, State) ->
