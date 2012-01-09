@@ -20,3 +20,12 @@ handle_info_when_timeout_should_register_with_game_test() ->
     after
         meck:unload()
     end.
+
+player_ready_should_notify_game_test() ->
+    meck:new(uno_game),
+    try
+        meck:expect(uno_game, deal_me_in, 0, []),
+        uno_player:player_ready()
+    after
+        meck:unload()
+    end.

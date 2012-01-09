@@ -6,7 +6,7 @@
 %% API Function Exports
 %% ------------------------------------------------------------------
 
--export([start_link/0, start_link/1]).
+-export([start_link/0, start_link/1, player_ready/0]).
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -22,6 +22,9 @@ start_link() ->
   gen_server:start_link(?MODULE, [], []).
 start_link(Value) ->
   gen_server:start_link(?MODULE, [Value], []).
+
+player_ready() ->
+  {ok} .
 
 %% ------------------------------------------------------------------
 %% gen_server Function Definitions

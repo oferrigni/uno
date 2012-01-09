@@ -11,7 +11,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, hello_amos/0, get_arg/0, register_player/0]).
+-export([start_link/0, hello_amos/0, get_arg/0, register_player/0, deal_me_in/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -31,6 +31,9 @@
 
 register_player() ->
     gen_server:cast(?SERVER, {register,self()}).
+
+deal_me_in() -> 
+    {ok} .
 
 %%--------------------------------------------------------------------
 %% @doc
