@@ -11,7 +11,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, hello_amos/0, get_arg/0, register_player/0, deal_me_in/0]).
+-export([start_link/0, register_player/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -23,7 +23,7 @@
 
 -define(SERVER, ?MODULE).
 
--record(state, {last_arg, players = [], ready_players = []}).
+-record(state, {players = []}).
 
 %%%===================================================================
 %%% API
@@ -31,9 +31,6 @@
 
 register_player() ->
     gen_server:cast(?SERVER, {register,self()}).
-
-deal_me_in() -> 
-    {ok} .
 
 %%--------------------------------------------------------------------
 %% @doc
@@ -43,11 +40,7 @@ deal_me_in() ->
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-        gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
-hello_amos() ->
-        gen_server:cast(?SERVER, {hello_amos, some_arg}).
-get_arg() ->
-        gen_server:call(?SERVER, get_arg).
+    gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 %%%===================================================================
 %%% gen_server callbacks
@@ -66,7 +59,7 @@ get_arg() ->
 %%--------------------------------------------------------------------
 init([]) ->
         uno_player_sup:start_players(["one", "two", "three", "four"]),
-        {ok, #state{last_arg = "Empty"}}.
+        {ok, #state{}}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -82,9 +75,6 @@ init([]) ->
 %%                                   {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
-handle_call(get_arg, _From, #state{last_arg = LastArg} = State) ->
-        Reply = LastArg,
-        {reply, Reply, State};
 handle_call(_Request, _From, State) ->
         Reply = ok,
         {reply, Reply, State}.
@@ -99,8 +89,6 @@ handle_call(_Request, _From, State) ->
 %%                                  {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
-handle_cast({hello_amos, Arg}, _State) ->
-  {noreply, #state{last_arg = Arg}};
 handle_cast({register, From}, State) ->
         #state{players = Players} = State,
         {noreply, #state{players = Players ++ [From]}};
