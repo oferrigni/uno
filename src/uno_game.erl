@@ -23,7 +23,7 @@
 
 -define(SERVER, ?MODULE).
 
--record(state, {players = []}).
+-include("include/uno_game.hrl").
 
 %%%===================================================================
 %%% API
