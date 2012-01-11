@@ -23,7 +23,7 @@
 
 -define(SERVER, ?MODULE).
 
--record(state, {last_arg, players = []}).
+-record(state, {last_arg, players = [], ready_players = []}).
 
 %%%===================================================================
 %%% API

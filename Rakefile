@@ -12,9 +12,9 @@ task :test => :build do
     rebar_test 'eunit skip_deps=true'
 end
 
-desc "Use rebar to build the applicaiton"
+desc "Use rebar to build the application"
 task :build do
-    rebar 'compile skip_deps=true'
+    rebar 'compile'
 end
 
 def rebar_test(param_string)
