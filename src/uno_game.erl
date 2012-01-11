@@ -89,11 +89,15 @@ handle_call(_Request, _From, State) ->
 %%                                  {stop, Reason, State}
 %% @end
 %%--------------------------------------------------------------------
+handle_cast({register, From}, #state{players = [_, _, _] = Players}) ->
+    All_players = Players ++ [From],
+    uno_deck:deal_players(All_players),
+    {noreply, #state{players = All_players}};
 handle_cast({register, From}, State) ->
-        #state{players = Players} = State,
-        {noreply, #state{players = Players ++ [From]}};
+    #state{players = Players} = State,
+    {noreply, #state{players = Players ++ [From]}};
 handle_cast(_Msg, State) ->
-        {noreply, State}.
+    {noreply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
