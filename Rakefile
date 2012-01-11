@@ -1,5 +1,12 @@
 require 'rubygems'
 
+task :default => [:'get-deps',:build]
+
+desc "Fetch dependencies"
+task :'get-deps' do 
+  rebar 'get-deps'
+end
+
 desc "Run eunit tests with rebar"
 task :test => :build do
     rebar_test 'eunit skip_deps=true'
